@@ -1,3 +1,4 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+Builds/dokibird_game_jam_upload.zip
