@@ -1,0 +1,46 @@
+name: Deploy to itch.io
+
+on:
+  push:
+    branches: [ main ]
+  release:
+    types: [ published ]
+  workflow_dispatch:
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    name: Export and Deploy to itch.io
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Setup Godot
+        uses: chickensoft-games/setup-godot@v2
+        with:
+          version: 4.4-stable
+          use-dotnet: false
+
+      - name: Verify Setup
+        run: |
+          godot --version
+
+      - name: Import project
+        run: |
+          godot --headless --verbose --import
+
+      - name: Export for Web
+        run: |
+          mkdir -p builds
+          godot --headless --verbose --export-release "Web" builds/index.html
+
+      - name: Deploy to itch.io
+        uses: manleydev/butler-publish-itchio-action@v1.0.3
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
+          CHANNEL: html5
+          ITCH_GAME: ${{ secrets.ITCH_GAME }}
+          ITCH_USER: ${{ secrets.ITCH_USER }}
+          PACKAGE: builds
