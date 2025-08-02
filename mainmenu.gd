@@ -3,7 +3,6 @@ extends Control
 @onready var start_button = $VBoxContainer/StartButton
 @onready var settings_button = $VBoxContainer/SettingsButton
 @onready var credits_button = $VBoxContainer/CreditsButton
-@onready var exit_button = $VBoxContainer/ExitButton
 
 func _ready():
 	start_button.pressed.connect(_on_start_button_pressed)

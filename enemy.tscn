@@ -29,6 +29,7 @@ metadata/_edit_group_ = true
 sprite_frames = SubResource("SpriteFrames_4gyqm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-12, -33)
 shape = SubResource("CapsuleShape2D_7k104")
 
